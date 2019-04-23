@@ -1,4 +1,5 @@
 const readLine = require('readline');
+const fs = require('fs');
 
 let realPerson = {
   name: '',
@@ -9,6 +10,10 @@ let rl = readLine.createInterface(process.stdin, process.stdout);
 
 rl.question('What is the name of a real person? ', answer => {
   realPerson.name = answer;
+  fs.writeFileSync(
+    'realPerson.name' + '.md',
+    `${realPerson.name}\n=================\n`,
+  );
   rl.setPrompt(`What would ${realPerson.name} say?`);
 
   rl.prompt();
@@ -17,6 +22,7 @@ rl.question('What is the name of a real person? ', answer => {
       rl.close();
     } else {
       realPerson.sayings.push(saying.trim());
+      fs.appendFile(realPerson.name + '.md', `- ${saying.trim()} \n`, () => {});
       rl.setPrompt(
         `What else might ${realPerson.name} say? (or 'exit' to quit)`,
       );
