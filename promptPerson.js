@@ -10,19 +10,22 @@ let rl = readLine.createInterface(process.stdin, process.stdout);
 
 rl.question('What is the name of a real person? ', answer => {
   realPerson.name = answer;
-  fs.writeFileSync(
-    'realPerson.name' + '.md',
-    `${realPerson.name}\n=================\n`,
-  );
+
+  let stream = fs.createWriteStream(realPerson.name + '.md');
+
+  stream.write(`${realPerson.name}\n=================\n`);
+
   rl.setPrompt(`What would ${realPerson.name} say?`);
 
   rl.prompt();
   rl.on('line', saying => {
     if (saying.toLowerCase().trim() === 'exit') {
+      stream.close();
       rl.close();
     } else {
       realPerson.sayings.push(saying.trim());
-      fs.appendFile(realPerson.name + '.md', `- ${saying.trim()} \n`, () => {});
+      stream.write(`- ${saying.trim()} \n`);
+
       rl.setPrompt(
         `What else might ${realPerson.name} say? (or 'exit' to quit)`,
       );
