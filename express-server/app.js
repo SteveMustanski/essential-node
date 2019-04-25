@@ -42,6 +42,16 @@ app.post('/dictionary-api', (req, res) => {
   res.json(vtTerms);
 });
 
+app.delete('/dictionary-api/:term', (req, res) => {
+  vtTerms = vtTerms.filter(definition => {
+    return (
+      definition.term.toLocaleLowerCase() !==
+      req.params.term.toLocaleLowerCase()
+    );
+  });
+  res.json(vtTerms);
+});
+
 app.listen(3000);
 
 console.log(`Express app is running on ${port}`);
