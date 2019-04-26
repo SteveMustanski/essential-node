@@ -12,6 +12,7 @@
   "author": "Steve Mustanski",
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "nock": "^10.0.6"
   }
 }
