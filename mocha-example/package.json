@@ -1,0 +1,17 @@
+{
+  "name": "mocha-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Steve Mustanski",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.2.0"
+  }
+}
