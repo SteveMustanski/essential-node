@@ -13,6 +13,7 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "nock": "^10.0.6"
+    "nock": "^10.0.6",
+    "rewire": "^4.0.1"
   }
 }
