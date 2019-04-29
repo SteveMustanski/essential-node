@@ -16,6 +16,12 @@ describe('Ordering Items', function() {
     this.console = {
       log: sinon.spy(),
     };
+    // mock warehouse and return fake tracking number
+    this.warehouse = {
+      packageAndShip: sinon.stub().yields(1098765432),
+    };
+    // set up mock
+    order.__set__('warehouse', this.warehouse);
     // set the order console to point to sinon spy using rewire
     // order.__set__('console', this.console);
   });
@@ -23,6 +29,21 @@ describe('Ordering Items', function() {
     let _this = this;
     order.orderItem('CCC', 3, () => {
       done();
+    });
+  });
+
+  describe('warehouse interaction', function() {
+    beforeEach(function() {
+      this.callback = sinon.spy();
+      order.orderItem('CCC', 2, this.callback);
+    });
+
+    it('returns a tracking numbrer', function() {
+      expect(this.callback.calledWith(1098765432)).to.equal(true);
+    });
+
+    it('calls packageAndShip with the correct sku and quanity', function() {
+      expect(this.warehouse.packageAndShip.calledWith('CCC', 2)).to.equal(true);
     });
   });
 });
